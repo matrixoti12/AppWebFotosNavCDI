@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Fotos</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="marcostyle.css">
 </head>
 <body>
     <h1>Registro de Fotos con Metadatos</h1>
@@ -22,6 +21,12 @@
             <option value="Rosy">Rosy</option>
             <option value="Arely">Arely</option>
             <option value="Eduardo">Eduardo</option>
+        </select>
+
+        <label for="cameraSelect">Seleccionar Cámara:</label>
+        <select id="cameraSelect">
+            <option value="user">Frontal</option>
+            <option value="environment">Trasera</option>
         </select>
 
         <video id="camera" autoplay></video>
