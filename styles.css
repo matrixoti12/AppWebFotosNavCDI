@@ -1,68 +1,94 @@
+/* Estilos Generales */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8; /* Fondo claro y moderno */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #007bff; /* Color de encabezado atractivo */
+    color: white;
+    padding: 20px;
     text-align: center;
-    margin: 20px;
-    background-color: #f0f0f0;
+    border-bottom: 5px solid #f8f9fa; /* Borde suave abajo */
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-form {
-    display: inline-block;
-    margin-top: 20px;
-    max-width: 400px;
-    width: 100%;
-    text-align: left;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-label {
-    display: block;
-    margin: 10px 0 5px;
+    margin: 0;
+    font-size: 2.5em;
     font-weight: bold;
 }
 
-input, select {
-    padding: 10px;
-    width: calc(100% - 20px);
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+/* Main Section */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Card Design */
+.card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Video Section */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    margin-bottom: 20px;
+    border: 2px solid #ced4da;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #e9ecef; /* Light background for video */
 }
 
 video {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 15px 0;
+    height: 100%;
+    border-radius: 10px;
 }
 
+/* Form Controls */
+input, select, button {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #d1d3e2;
+    font-size: 1em;
+}
+
+/* Button Design */
 button {
-    display: block;
-    width: calc(100% - 20px);
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #007bff;
+    background-color: #007bff; /* Matching with header */
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-weight: bold;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker shade for hover */
 }
 
+button:focus {
+    outline: none;
+}
+
+/* Image & Frame Display */
 #photoContainer {
     position: relative;
     display: inline-block;
@@ -70,8 +96,33 @@ button:hover {
 }
 
 #capturedPhoto, #frame {
-    display: none;
+    display: block;
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+/* Select Dropdown */
+select {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Form Layout */
+label {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Styling for Select */
+select {
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #d1d3e2;
+    font-size: 1em;
 }
