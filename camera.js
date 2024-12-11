@@ -3,7 +3,6 @@ const video = document.getElementById('camera');
 const canvas = document.getElementById('snapshot');
 const takePhotoBtn = document.getElementById('takePhoto');
 const capturedPhoto = document.getElementById('capturedPhoto');
-const frame = document.getElementById('frame');
 const cameraSelect = document.getElementById('cameraSelect');
 
 let photoData = "";
@@ -40,25 +39,9 @@ takePhotoBtn.addEventListener('click', () => {
 
     photoData = canvas.toDataURL("image/jpeg");
 
-    // Mostrar la imagen capturada
+    // Mostrar la imagen capturada (sin marco por ahora)
     capturedPhoto.src = photoData;
     capturedPhoto.style.display = 'block';
-
-    // Ajustar el marco al tamaño de la foto capturada
-    capturedPhoto.onload = () => {
-        const photoWidth = capturedPhoto.width;
-        const photoHeight = capturedPhoto.height;
-
-        // Dibujar la foto en el canvas
-        context.drawImage(capturedPhoto, 0, 0, photoWidth, photoHeight);
-
-        // Dibujar el marco en el canvas
-        const frameImg = new Image();
-        frameImg.src = frame.src;
-        frameImg.onload = () => {
-            context.drawImage(frameImg, 0, 0, photoWidth, photoHeight);
-        };
-    };
 });
 
 // Guardar foto con metadatos
@@ -74,9 +57,9 @@ form.addEventListener('submit', async (e) => {
         return;
     }
 
-    // Crear un enlace de descarga
+    // Crear un enlace de descarga (sin marco por ahora)
     const downloadLink = document.createElement('a');
-    downloadLink.href = canvas.toDataURL("image/jpeg");
+    downloadLink.href = photoData;  // Usar photoData directamente
     downloadLink.download = `foto_${studentName}_${studentCode}_${tutorName}.jpeg`;
 
     // Simular un clic en el enlace
