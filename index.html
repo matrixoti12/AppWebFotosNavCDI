@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Fotos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="marcostyle.css">
+</head>
+<body>
+    <h1>Registro de Fotos con Metadatos</h1>
+    <form id="studentForm">
+        <label for="studentName">Nombre del Alumno:</label>
+        <input type="text" id="studentName" placeholder="Nombre del alumno" required>
+
+        <label for="studentCode">Código del Alumno:</label>
+        <input type="text" id="studentCode" placeholder="Código del alumno" required>
+
+        <label for="tutorName">Nombre del Tutor:</label>
+        <select id="tutorName">
+            <option value="Ahbram">Ahbram</option>
+            <option value="Rosy">Rosy</option>
+            <option value="Arely">Arely</option>
+            <option value="Eduardo">Eduardo</option>
+        </select>
+
+        <video id="camera" autoplay></video>
+        <canvas id="snapshot" style="display:none;"></canvas>
+        <button type="button" id="takePhoto">Tomar Foto</button>
+        <button type="submit">Guardar Foto</button>
+    </form>
+
+    <!-- Contenedor para la imagen con el marco -->
+    <div id="photoContainer" style="position: relative; display: inline-block; margin-top: 20px;">
+        <img id="capturedPhoto" src="" alt="Foto capturada" style="display: none;">
+        <img id="frame" src="MarcoaNavid.svg" alt="Marco Navideño" style="position: absolute; top: 0; left: 0; pointer-events: none; display: none;">
+    </div>
+
+    <script src="camera.js"></script>
+</body>
+</html>
