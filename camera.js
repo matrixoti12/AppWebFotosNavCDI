@@ -4,15 +4,27 @@ const canvas = document.getElementById('snapshot');
 const takePhotoBtn = document.getElementById('takePhoto');
 const capturedPhoto = document.getElementById('capturedPhoto');
 const frame = document.getElementById('frame');
-
-// Acceso a la cámara
-navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
-    .then(stream => {
-        video.srcObject = stream;
-    })
-    .catch(err => console.error("Error al acceder a la cámara:", err));
+const cameraSelect = document.getElementById('cameraSelect');
 
 let photoData = "";
+
+// Función para iniciar la cámara
+function startCamera(facingMode) {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(err => console.error("Error al acceder a la cámara:", err));
+}
+
+// Iniciar la cámara con la opción seleccionada
+cameraSelect.addEventListener('change', () => {
+    const facingMode = cameraSelect.value;
+    startCamera(facingMode);
+});
+
+// Iniciar la cámara con la opción predeterminada
+startCamera(cameraSelect.value);
 
 // Capturar foto
 takePhotoBtn.addEventListener('click', () => {
