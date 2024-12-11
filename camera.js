@@ -68,11 +68,13 @@ form.addEventListener('submit', (e) => {
         return;
     }
 
-    // Crear enlace de descarga
+    // Crear un enlace de descarga
     const downloadLink = document.createElement('a');
     downloadLink.href = photoData;
     downloadLink.download = `foto_${studentName}_${studentCode}_${tutorName}.jpeg`;
+
+    // Simular un clic en el enlace
     downloadLink.click();
 
-    alert("¡Foto guardada con marco!");
+    alert("¡Foto guardada!");
 });
