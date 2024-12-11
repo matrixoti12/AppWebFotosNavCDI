@@ -2,10 +2,12 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
+    background-color: #f0f0f0;
 }
 
 h1 {
     color: #333;
+    margin-bottom: 20px;
 }
 
 form {
@@ -14,19 +16,25 @@ form {
     max-width: 400px;
     width: 100%;
     text-align: left;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
     display: block;
     margin: 10px 0 5px;
+    font-weight: bold;
 }
 
-input {
+input, select {
     padding: 10px;
     width: calc(100% - 20px);
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 video {
@@ -48,8 +56,22 @@ button {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+#photoContainer {
+    position: relative;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+#capturedPhoto, #frame {
+    display: none;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
