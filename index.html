@@ -3,44 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Fotos</title>
+    <title>Fotos Navideñas CDI2024</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Registro de Fotos con Metadatos</h1>
-    <form id="studentForm">
-        <label for="studentName">Nombre del Alumno:</label>
-        <input type="text" id="studentName" placeholder="Nombre del alumno" required>
-
-        <label for="studentCode">Código del Alumno:</label>
-        <input type="text" id="studentCode" placeholder="Código del alumno" required>
-
-        <label for="tutorName">Nombre del Tutor:</label>
-        <select id="tutorName">
-            <option value="Ahbram">Ahbram</option>
-            <option value="Rosy">Rosy</option>
-            <option value="Arely">Arely</option>
-            <option value="Eduardo">Eduardo</option>
-        </select>
-
-        <label for="cameraSelect">Seleccionar Cámara:</label>
-        <select id="cameraSelect">
-            <option value="user">Frontal</option>
-            <option value="environment">Trasera</option>
-        </select>
-
-        <video id="camera" autoplay></video>
-        <canvas id="snapshot" style="display:none;"></canvas>
-        <button type="button" id="takePhoto">Tomar Foto</button>
-        <button type="submit">Guardar Foto</button>
-    </form>
-
-    <!-- Contenedor para la imagen con el marco -->
-    <div id="photoContainer" style="position: relative; display: inline-block; margin-top: 20px;">
-        <img id="capturedPhoto" src="" alt="Foto capturada" style="display: none;">
-        <img id="frame" src="MarcoaNavid.svg" alt="Marco Navideño" style="position: absolute; top: 0; left: 0; pointer-events: none; display: none;">
-    </div>
-
+    <header class="bg-primary text-white text-center py-3">
+        <h1>Fotos Navideñas CDI2024</h1>
+    </header>
+    <main class="container my-4">
+        <form id="studentForm" class="card p-4 shadow-lg">
+            <div class="form-group">
+                <label for="studentName">Nombre del Alumno:</label>
+                <input type="text" id="studentName" class="form-control" placeholder="Nombre del alumno" required>
+            </div>
+            <div class="form-group">
+                <label for="studentCode">Código del Alumno:</label>
+                <input type="text" id="studentCode" class="form-control" placeholder="Código del alumno" required>
+            </div>
+            <div class="form-group">
+                <label for="tutorName">Nombre del Tutor:</label>
+                <select id="tutorName" class="form-control">
+                    <option value="Ahbram">Ahbram</option>
+                    <option value="Rosy">Rosy</option>
+                    <option value="Arely">Arely</option>
+                    <option value="Eduardo">Eduardo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cameraSelect">Seleccionar Cámara:</label>
+                <select id="cameraSelect" class="form-control">
+                    <option value="user">Frontal</option>
+                    <option value="environment">Trasera</option>
+                </select>
+            </div>
+            <div class="video-container mb-3">
+                <video id="camera" class="w-100" autoplay></video>
+            </div>
+            <canvas id="snapshot" style="display:none;"></canvas>
+            <div class="button-group d-flex justify-content-between">
+                <button type="button" id="takePhoto" class="btn btn-success btn-lg">Tomar Foto</button>
+                <button type="submit" class="btn btn-primary btn-lg">Guardar Foto</button>
+            </div>
+        </form>
+        <div id="photoContainer" class="card p-4 mt-4 shadow-lg">
+            <img id="capturedPhoto" src="" alt="Foto capturada" class="img-fluid" style="display: none;">
+            <img id="frame" src="MarcoaNavid.svg" alt="Marco Navideño" class="img-fluid" style="position: absolute; top: 0; left: 0; pointer-events: none; display: none;">
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="camera.js"></script>
 </body>
 </html>
