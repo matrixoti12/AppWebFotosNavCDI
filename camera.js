@@ -10,11 +10,16 @@ let photoData = "";
 
 // Función para iniciar la cámara
 function startCamera(facingMode) {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } })
-        .then(stream => {
-            video.srcObject = stream;
-        })
-        .catch(err => console.error("Error al acceder a la cámara:", err));
+    navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: facingMode, width: 1280, height: 720 }
+    })
+    .then(stream => {
+        video.srcObject = stream;
+    })
+    .catch(err => {
+        console.error("Error al acceder a la cámara:", err);
+        alert("No se pudo acceder a la cámara. Por favor, revisa los permisos.");
+    });
 }
 
 // Iniciar la cámara con la opción seleccionada
