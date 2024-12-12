@@ -24,12 +24,12 @@ function startCamera(facingMode) {
 
 // Iniciar la cámara con la opción seleccionada
 cameraSelect.addEventListener('change', () => {
-    const facingMode = cameraSelect.value;
+    const facingMode = cameraSelect.checked ? 'environment' : 'user';
     startCamera(facingMode);
 });
 
 // Iniciar la cámara con la opción predeterminada
-startCamera(cameraSelect.value);
+startCamera(cameraSelect.checked ? 'environment' : 'user');
 
 // Capturar foto y aplicar marco
 takePhotoBtn.addEventListener('click', () => {
@@ -68,13 +68,11 @@ form.addEventListener('submit', (e) => {
         return;
     }
 
-    // Crear un enlace de descarga
+    // Crear enlace de descarga
     const downloadLink = document.createElement('a');
     downloadLink.href = photoData;
     downloadLink.download = `foto_${studentName}_${studentCode}_${tutorName}.jpeg`;
-
-    // Simular un clic en el enlace
     downloadLink.click();
 
-    alert("¡Foto guardada!");
+    alert("¡Foto guardada con marco!");
 });
