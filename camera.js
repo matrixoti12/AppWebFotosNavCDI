@@ -42,7 +42,7 @@ takePhotoBtn.addEventListener('click', () => {
 
     // Dibujar el marco encima
     const frameImage = new Image();
-    frameImage.src = 'Marco2.svg'; // Ruta del marco
+    frameImage.src = 'Marcodorado.svg'; // Ruta del marco
     frameImage.onload = () => {
         context.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
 
