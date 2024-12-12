@@ -1,35 +1,42 @@
 /* Estilos Generales */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f4f8; /* Fondo claro y moderno */
+    background-color: #fdf6f0; /* Fondo cálido y navideño */
     margin: 0;
     padding: 0;
     color: #333;
 }
 
 header {
-    background-color: #007bff; /* Color de encabezado atractivo */
+    background-color: #b71c1c; /* Rojo navideño */
     color: white;
     padding: 20px;
     text-align: center;
-    border-bottom: 5px solid #f8f9fa; /* Borde suave abajo */
+    border-bottom: 5px solid #f8f9fa;
 }
 
 h1 {
     margin: 0;
     font-size: 2.5em;
-    font-weight: bold;
 }
 
-/* Main Section */
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+h2, h3 {
+    color: #2e7d32; /* Verde navideño */
 }
 
-/* Card Design */
+/* Paleta de Colores */
+.bg-red {
+    background-color: #b71c1c !important;
+}
+
+.text-green {
+    color: #2e7d32 !important;
+}
+
+.bg-green {
+    background-color: #2e7d32 !important;
+}
+
 .card {
     background-color: white;
     border-radius: 15px;
@@ -37,6 +44,46 @@ main {
     margin: 20px 0;
     width: 100%;
     max-width: 500px;
+}
+
+/* Input & Select */
+.input-group-text {
+    border-radius: 10px 0 0 10px;
+}
+
+input, select {
+    border-radius: 0 10px 10px 0;
+    font-size: 1em;
+}
+
+/* Botones */
+button {
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo del Switch */
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #2e7d32; /* Verde navideño cuando está activado */
+    border-color: #2e7d32;
+}
+
+.custom-control-label {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-control-label::before {
+    background-color: #fdf6f0; /* Fondo claro */
+    border-color: #ced4da;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 /* Video Section */
@@ -58,71 +105,4 @@ video {
     width: 100%;
     height: 100%;
     border-radius: 10px;
-}
-
-/* Form Controls */
-input, select, button {
-    width: 100%;
-    padding: 12px 15px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: 1px solid #d1d3e2;
-    font-size: 1em;
-}
-
-/* Button Design */
-button {
-    background-color: #007bff; /* Matching with header */
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: bold;
-}
-
-button:hover {
-    background-color: #0056b3; /* Darker shade for hover */
-}
-
-button:focus {
-    outline: none;
-}
-
-/* Image & Frame Display */
-#photoContainer {
-    position: relative;
-    display: inline-block;
-    margin-top: 20px;
-}
-
-#capturedPhoto, #frame {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-top: 15px;
-}
-
-/* Select Dropdown */
-select {
-    background-color: #fff;
-    color: #333;
-}
-
-/* Form Layout */
-label {
-    display: block;
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #555;
-}
-
-/* Styling for Select */
-select {
-    padding: 12px;
-    background-color: #fff;
-    border-radius: 10px;
-    border: 1px solid #d1d3e2;
-    font-size: 1em;
 }
