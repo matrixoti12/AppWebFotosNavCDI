@@ -44,7 +44,6 @@
             </div>
             <div class="form-group">
                 <label for="cameraSelect">Seleccionar Cámara:</label>
-                <!-- Cambié el select por un toggle switch -->
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="cameraSelect" value="environment">
                     <label class="custom-control-label" for="cameraSelect">🔄 Cámara Frontal / Trasera</label>
@@ -57,6 +56,7 @@
             <div class="d-flex justify-content-between mt-3">
                 <button type="button" id="takePhoto" class="btn btn-success btn-lg">📸 Tomar Foto</button>
                 <button type="submit" class="btn btn-danger btn-lg">💾 Guardar Foto</button>
+                <button type="button" id="clearFields" class="btn btn-secondary btn-lg">🧹 Limpiar Campos</button>
             </div>
         </form>
         <div id="photoContainer" class="card p-4 mt-4 shadow-lg border-0">
@@ -69,5 +69,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="camera.js"></script>
+    <script>
+        // Agregar funcionalidad para limpiar los campos del formulario
+        document.getElementById('clearFields').addEventListener('click', function() {
+            document.getElementById('studentName').value = '';
+            document.getElementById('studentCode').value = '';
+            document.getElementById('tutorName').selectedIndex = 0;
+            document.getElementById('cameraSelect').checked = false;
+            document.getElementById('capturedPhoto').style.display = 'none';
+            document.getElementById('frame').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
