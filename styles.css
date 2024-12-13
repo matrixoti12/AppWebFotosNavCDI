@@ -1,3 +1,63 @@
+/* Estilos Generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fdf6f0; /* Fondo cálido y navideño */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #b71c1c; /* Rojo navideño */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 5px solid #f8f9fa;
+    display: block;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: white;
+}
+
+h2, h3 {
+    color: #2e7d32; /* Verde navideño */
+}
+
+/* Paleta de Colores */
+.bg-red {
+    background-color: #b71c1c !important;
+}
+
+.text-green {
+    color: #2e7d32 !important;
+}
+
+.bg-green {
+    background-color: #2e7d32 !important;
+}
+
+.card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Input & Select */
+.input-group-text {
+    border-radius: 10px 0 0 10px;
+}
+
+input, select {
+    border-radius: 0 10px 10px 0;
+    font-size: 1em;
+}
+
 /* Botones */
 button {
     border: none;
@@ -49,6 +109,7 @@ button:hover {
 .d-flex button {
     margin: 0 10px; /* Espaciado horizontal */
 }
+
 @media (max-width: 576px) {
     .d-flex {
         flex-direction: column; /* Botones en una sola columna */
@@ -58,3 +119,67 @@ button:hover {
     }
 }
 
+/* Estilo del Switch */
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #2e7d32; /* Verde navideño cuando está activado */
+    border-color: #2e7d32;
+}
+
+.custom-control-label {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-control-label::before {
+    background-color: #fdf6f0; /* Fondo claro */
+    border-color: #ced4da;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Video Section */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    margin-bottom: 20px;
+    border: 2px solid #ced4da;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #e9ecef; /* Fondo claro para el video */
+}
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* Ajuste para el título en dispositivos pequeños */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+}
+
+/* Estilo de la vista previa de la foto */
+#photoContainer {
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#capturedPhoto, #frame {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
