@@ -1,65 +1,50 @@
+let streamRef = null;
+let isFrontCamera = false;
+let photoData = null;
+
+// Elementos del DOM
 const form = document.getElementById('studentForm');
 const video = document.getElementById('camera');
 const canvas = document.getElementById('snapshot');
 const takePhotoBtn = document.getElementById('takePhoto');
 const capturedPhoto = document.getElementById('capturedPhoto');
-const cameraSelect = document.getElementById('cameraSelect');
+const cameraSwitchBtn = document.getElementById('cameraSwitch');
 
-let photoData = "";
-let streamRef = null;
-
-// Función para mostrar mensajes de estado
-function showMessage(message, type = 'info') {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-5`;
-    alertDiv.style.zIndex = '1050';
-    alertDiv.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-    document.body.appendChild(alertDiv);
-    
-    setTimeout(() => alertDiv.remove(), 3000);
-}
-
-// Función para iniciar la cámara
-async function startCamera(facingMode) {
+// Inicializar cámara
+async function startCamera(useFrontCamera = false) {
     try {
         if (streamRef) {
             streamRef.getTracks().forEach(track => track.stop());
         }
 
         const stream = await navigator.mediaDevices.getUserMedia({
-            video: { 
-                facingMode: facingMode,
-                width: { ideal: 1920 },
-                height: { ideal: 1080 }
+            video: {
+                facingMode: useFrontCamera ? 'user' : 'environment',
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
             }
         });
-        
+
         video.srcObject = stream;
         streamRef = stream;
         await video.play();
-    } catch (err) {
-        console.error("Error al acceder a la cámara:", err);
-        showMessage('Error al acceder a la cámara. Revisa los permisos.', 'danger');
+        isFrontCamera = useFrontCamera;
+        takePhotoBtn.disabled = false;
+    } catch (error) {
+        console.error('Error al acceder a la cámara:', error);
+        mostrarMensaje('No se pudo acceder a la cámara', 'error');
     }
 }
 
-// Inicializar cámara con la opción seleccionada
-cameraSelect.addEventListener('change', () => {
-    const facingMode = cameraSelect.checked ? 'environment' : 'user';
-    startCamera(facingMode);
+// Cambiar cámara
+cameraSwitchBtn.addEventListener('click', () => {
+    startCamera(!isFrontCamera);
 });
 
-// Iniciar cámara con opción predeterminada (cámara trasera)
-startCamera('environment');
-cameraSelect.checked = true;
-
-// Capturar foto
+// Tomar foto
 takePhotoBtn.addEventListener('click', () => {
-    if (!video.srcObject) {
-        showMessage('La cámara no está activa', 'warning');
+    if (!streamRef) {
+        mostrarMensaje('Cámara no disponible', 'error');
         return;
     }
 
@@ -67,96 +52,172 @@ takePhotoBtn.addEventListener('click', () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    // Capturar imagen de la cámara
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    if (isFrontCamera) {
+        context.translate(canvas.width, 0);
+        context.scale(-1, 1);
+    }
     
-    // Convertir a base64
-    photoData = canvas.toDataURL("image/jpeg", 0.8);
+    context.drawImage(video, 0, 0);
+
+    // Agregar metadatos visuales a la imagen
+    const nombre = document.getElementById('studentName').value.trim();
+    const codigo = document.getElementById('studentCode').value.trim();
     
-    // Mostrar la foto capturada
+    if (nombre && codigo) {
+        // Agregar texto con metadatos en la esquina inferior
+        context.scale(isFrontCamera ? -1 : 1, 1);
+        context.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        context.fillRect(0, canvas.height - 60, canvas.width, 60);
+        context.fillStyle = 'white';
+        context.font = '20px Arial';
+        context.textAlign = 'left';
+        context.fillText(`Nombre: ${nombre}`, 10, canvas.height - 35);
+        context.fillText(`Código: ${codigo}`, 10, canvas.height - 10);
+    }
+    
+    photoData = canvas.toDataURL('image/jpeg', 0.8);
     capturedPhoto.src = photoData;
     capturedPhoto.style.display = 'block';
     
-    showMessage('Foto capturada correctamente', 'success');
-    
-    // Hacer scroll a la vista previa
-    capturedPhoto.scrollIntoView({ behavior: 'smooth' });
+    mostrarMensaje('Foto capturada', 'success');
 });
 
-// Guardar foto en la carpeta del tutor
+// Guardar registro
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const studentName = document.getElementById('studentName').value.trim();
-    const studentCode = document.getElementById('studentCode').value.trim();
-    const age = document.getElementById('age').value;
-    const classroom = document.getElementById('classroom').value;
-    const tutorName = document.getElementById('tutorName').value;
+    const nombre = document.getElementById('studentName').value.trim();
+    const codigo = document.getElementById('studentCode').value.trim();
 
-    // Validar campos
-    if (!studentName || !studentCode || !age || !classroom || !tutorName) {
-        showMessage('Por favor completa todos los campos', 'warning');
+    if (!nombre || !codigo) {
+        mostrarMensaje('Completa nombre y código', 'error');
         return;
     }
 
     if (!photoData) {
-        showMessage('Por favor captura una foto primero', 'warning');
+        mostrarMensaje('Toma una foto primero', 'error');
         return;
     }
 
     try {
-        // Crear nombre del archivo
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const fileName = `${studentName}_${studentCode}_${age}_${classroom}_${timestamp}.jpg`
+        // Crear un input de tipo file para seleccionar la carpeta
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.webkitdirectory = true;
+        input.directory = true;
+
+        input.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                const folder = this.files[0].path.split('\\').slice(0, -1).join('\\');
+                guardarFoto(nombre, codigo, folder);
+            }
+        });
+
+        input.click();
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarMensaje('Error al guardar la foto', 'error');
+    }
+});
+
+// Función para guardar la foto
+function guardarFoto(nombre, codigo, folder) {
+    try {
+        const timestamp = new Date().toISOString().split('.')[0].replace(/[:-]/g, '');
+        const fileName = `${nombre}_${codigo}_${timestamp}.jpg`
             .toLowerCase()
             .replace(/\s+/g, '_')
             .replace(/[^a-z0-9_.-]/g, '');
 
-        // Crear el enlace de descarga
-        const downloadLink = document.createElement('a');
-        downloadLink.href = photoData;
-        downloadLink.download = fileName;
-        
-        // Simular click para guardar
-        downloadLink.click();
+        const link = document.createElement('a');
+        link.href = photoData;
+        link.download = fileName;
+        link.click();
 
-        showMessage(`Foto guardada en la carpeta de ${tutorName}`, 'success');
+        mostrarMensaje('Foto guardada correctamente', 'success');
         
-        // Preguntar si desea limpiar el formulario
-        if (confirm('¿Deseas limpiar el formulario para un nuevo registro?')) {
-            form.reset();
-            capturedPhoto.style.display = 'none';
-            photoData = "";
-            cameraSelect.checked = true;
-            startCamera('environment');
+        if (confirm('¿Deseas tomar otra foto?')) {
+            limpiarFormulario();
         }
     } catch (error) {
         console.error('Error al guardar:', error);
-        showMessage('Error al guardar la foto', 'danger');
+        mostrarMensaje('Error al guardar la foto', 'error');
     }
-});
+}
 
-// Limpiar campos
+// Limpiar formulario
 document.getElementById('clearFields').addEventListener('click', () => {
-    if (confirm('¿Estás seguro de querer limpiar todos los campos?')) {
-        form.reset();
-        capturedPhoto.style.display = 'none';
-        photoData = "";
-        cameraSelect.checked = true;
-        startCamera('environment');
-        showMessage('Campos limpiados', 'info');
+    if (confirm('¿Deseas limpiar el formulario?')) {
+        limpiarFormulario();
     }
 });
 
-// Manejar la visibilidad de la página
+function limpiarFormulario() {
+    form.reset();
+    capturedPhoto.style.display = 'none';
+    photoData = null;
+    startCamera(isFrontCamera);
+}
+
+// Sistema de mensajes
+function mostrarMensaje(texto, tipo = 'info') {
+    const mensaje = document.createElement('div');
+    mensaje.className = `mensaje mensaje-${tipo}`;
+    mensaje.textContent = texto;
+    
+    document.body.appendChild(mensaje);
+    
+    requestAnimationFrame(() => {
+        mensaje.classList.add('visible');
+        
+        setTimeout(() => {
+            mensaje.classList.remove('visible');
+            setTimeout(() => mensaje.remove(), 300);
+        }, 2000);
+    });
+}
+
+// Manejar visibilidad de la página
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        // Detener la cámara cuando la app está en segundo plano
         if (streamRef) {
             streamRef.getTracks().forEach(track => track.stop());
         }
     } else {
-        // Reiniciar la cámara cuando la app vuelve a primer plano
-        startCamera(cameraSelect.checked ? 'environment' : 'user');
+        startCamera(isFrontCamera);
     }
 });
+
+// Estilos para mensajes
+const style = document.createElement('style');
+style.textContent = `
+    .mensaje {
+        position: fixed;
+        top: 1rem;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        padding: 0.75rem 1.5rem;
+        border-radius: 2rem;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        font-size: 0.9rem;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+    }
+
+    .mensaje.visible {
+        transform: translate(-50%, 0);
+    }
+
+    .mensaje-success {
+        background: rgba(25,135,84,0.9);
+    }
+
+    .mensaje-error {
+        background: rgba(220,53,69,0.9);
+    }
+`;
+document.head.appendChild(style);
+
+// Iniciar con cámara trasera
+startCamera(false);
