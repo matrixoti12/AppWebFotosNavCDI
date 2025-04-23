@@ -69,10 +69,9 @@ takePhotoBtn.addEventListener('click', () => {
         context.fillStyle = 'rgba(0, 0, 0, 0.5)';
         context.fillRect(0, canvas.height - 60, canvas.width, 60);
         context.fillStyle = 'white';
-        context.font = '20px Arial';
+        context.font = 'bold 24px Arial';
         context.textAlign = 'left';
-        context.fillText(`Nombre: ${nombre}`, 10, canvas.height - 35);
-        context.fillText(`Código: ${codigo}`, 10, canvas.height - 10);
+        context.fillText(`${nombre} - ${codigo}`, 10, canvas.height - 20);
     }
     
     photoData = canvas.toDataURL('image/jpeg', 0.8);
@@ -88,6 +87,7 @@ form.addEventListener('submit', async (e) => {
 
     const nombre = document.getElementById('studentName').value.trim();
     const codigo = document.getElementById('studentCode').value.trim();
+    const tutor = document.getElementById('tutorName').value;
 
     if (!nombre || !codigo) {
         mostrarMensaje('Completa nombre y código', 'error');
@@ -100,50 +100,35 @@ form.addEventListener('submit', async (e) => {
     }
 
     try {
-        // Crear un input de tipo file para seleccionar la carpeta
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.webkitdirectory = true;
-        input.directory = true;
-
-        input.addEventListener('change', function() {
-            if (this.files.length > 0) {
-                const folder = this.files[0].path.split('\\').slice(0, -1).join('\\');
-                guardarFoto(nombre, codigo, folder);
-            }
-        });
-
-        input.click();
-    } catch (error) {
-        console.error('Error:', error);
-        mostrarMensaje('Error al guardar la foto', 'error');
-    }
-});
-
-// Función para guardar la foto
-function guardarFoto(nombre, codigo, folder) {
-    try {
         const timestamp = new Date().toISOString().split('.')[0].replace(/[:-]/g, '');
         const fileName = `${nombre}_${codigo}_${timestamp}.jpg`
             .toLowerCase()
             .replace(/\s+/g, '_')
             .replace(/[^a-z0-9_.-]/g, '');
 
+        // Crear enlace de descarga
         const link = document.createElement('a');
         link.href = photoData;
         link.download = fileName;
-        link.click();
-
-        mostrarMensaje('Foto guardada correctamente', 'success');
+        link.style.display = 'none';
+        document.body.appendChild(link);
         
-        if (confirm('¿Deseas tomar otra foto?')) {
-            limpiarFormulario();
-        }
+        link.click();
+        
+        document.body.removeChild(link);
+        mostrarMensaje('Foto lista para guardar', 'success');
+        
+        // Preguntar si desea tomar otra foto
+        setTimeout(() => {
+            if (confirm('¿Deseas tomar otra foto?')) {
+                limpiarFormulario();
+            }
+        }, 500);
     } catch (error) {
         console.error('Error al guardar:', error);
         mostrarMensaje('Error al guardar la foto', 'error');
     }
-}
+});
 
 // Limpiar formulario
 document.getElementById('clearFields').addEventListener('click', () => {
@@ -200,7 +185,8 @@ style.textContent = `
         border-radius: 2rem;
         background: rgba(0,0,0,0.8);
         color: white;
-        font-size: 0.9rem;
+        font-size: 1rem;
+        font-weight: 500;
         z-index: 1000;
         transition: transform 0.3s ease;
     }
@@ -210,11 +196,11 @@ style.textContent = `
     }
 
     .mensaje-success {
-        background: rgba(25,135,84,0.9);
+        background: rgba(25,135,84,0.95);
     }
 
     .mensaje-error {
-        background: rgba(220,53,69,0.9);
+        background: rgba(220,53,69,0.95);
     }
 `;
 document.head.appendChild(style);
