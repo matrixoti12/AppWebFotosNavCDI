@@ -1,59 +1,108 @@
+/* Estilos Generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fdf6f0; /* Fondo cálido y navideño */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #b71c1c; /* Rojo navideño */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 5px solid #f8f9fa;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+h2, h3 {
+    color: #2e7d32; /* Verde navideño */
+}
+
+/* Paleta de Colores */
+.bg-red {
+    background-color: #b71c1c !important;
+}
+
+.text-green {
+    color: #2e7d32 !important;
+}
+
+.bg-green {
+    background-color: #2e7d32 !important;
+}
+
+.card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Input & Select */
+.input-group-text {
+    border-radius: 10px 0 0 10px;
+}
+
+input, select {
+    border-radius: 0 10px 10px 0;
+    font-size: 1em;
+}
+
 /* Botones */
 button {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     font-weight: bold;
-    font-size: 0.9em; /* Tamaño reducido */
-    padding: 8px 15px; /* Tamaño compacto */
-    border-radius: 20px; /* Bordes redondeados para un diseño minimalista */
-    margin: 5px; /* Espaciado entre botones */
-    display: inline-block;
-    min-width: 120px; /* Garantizar tamaño uniforme */
-    text-align: center;
 }
 
 button:hover {
     transform: scale(1.05);
-    background-color: rgba(0, 0, 0, 0.1); /* Efecto visual al pasar el mouse */
 }
 
-.btn-success {
-    background-color: #2e7d32; /* Verde navideño */
-    color: white;
+/* Estilo del Switch */
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #2e7d32; /* Verde navideño cuando está activado */
+    border-color: #2e7d32;
 }
 
-.btn-success:hover {
-    background-color: #1b5e20; /* Verde más oscuro */
+.custom-control-label {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
 }
 
-.btn-danger {
-    background-color: #b71c1c; /* Rojo navideño */
-    color: white;
+.custom-control-label::before {
+    background-color: #fdf6f0; /* Fondo claro */
+    border-color: #ced4da;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-.btn-danger:hover {
-    background-color: #7f0000; /* Rojo más oscuro */
+/* Video Section */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    margin-bottom: 20px;
+    border: 2px solid #ced4da;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #e9ecef; /* Light background for video */
 }
 
-.btn-secondary {
-    background-color: #757575; /* Gris neutro */
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #424242; /* Gris más oscuro */
-}
-
-/* Espaciado entre los botones para evitar confusiones */
-.d-flex button {
-    margin: 0 10px; /* Espaciado horizontal */
-}
-@media (max-width: 576px) {
-    .d-flex {
-        flex-direction: column; /* Botones en una sola columna */
-    }
-    .d-flex button {
-        margin: 10px 0; /* Espaciado vertical */
-    }
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
 }

@@ -6,23 +6,35 @@
     <title>Fotos Navideñas CDI2024</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="bg-primary text-white text-center py-3">
-        <h1>Fotos Navideñas CDI2024</h1>
+    <header class="bg-red text-white text-center py-4">
+        <h1 class="font-weight-bold">🎄 Fotos Navideñas CDI2024 🎅</h1>
     </header>
     <main class="container my-4">
-        <form id="studentForm" class="card p-4 shadow-lg">
+        <form id="studentForm" class="card p-4 shadow-lg border-0">
+            <h2 class="text-center mb-4 text-green font-weight-bold">¡Registra tu foto navideña! 🎁</h2>
             <div class="form-group">
                 <label for="studentName">Nombre del Alumno:</label>
-                <input type="text" id="studentName" class="form-control" placeholder="Nombre del alumno" required>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-green text-white">👤</span>
+                    </div>
+                    <input type="text" id="studentName" class="form-control" placeholder="Ingresa el nombre del alumno" required>
+                </div>
             </div>
             <div class="form-group">
                 <label for="studentCode">Código del Alumno:</label>
-                <input type="text" id="studentCode" class="form-control" placeholder="Código del alumno" required>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-red text-white">🆔</span>
+                    </div>
+                    <input type="text" id="studentCode" class="form-control" placeholder="Ejemplo: 12345" required>
+                </div>
             </div>
             <div class="form-group">
-                <label for="tutorName">Nombre del Tutor:</label>
+                <label for="tutorName">Selecciona el Tutor:</label>
                 <select id="tutorName" class="form-control">
                     <option value="Ahbram">Ahbram</option>
                     <option value="Rosy">Rosy</option>
@@ -32,23 +44,25 @@
             </div>
             <div class="form-group">
                 <label for="cameraSelect">Seleccionar Cámara:</label>
-                <select id="cameraSelect" class="form-control">
-                    <option value="user">Frontal</option>
-                    <option value="environment">Trasera</option>
-                </select>
+                <!-- Cambié el select por un toggle switch -->
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="cameraSelect" value="environment">
+                    <label class="custom-control-label" for="cameraSelect">🔄 Cámara Frontal / Trasera</label>
+                </div>
             </div>
-            <div class="video-container mb-3">
+            <div class="video-container mb-3 border border-green rounded">
                 <video id="camera" class="w-100" autoplay></video>
             </div>
             <canvas id="snapshot" style="display:none;"></canvas>
-            <div class="button-group d-flex justify-content-between">
-                <button type="button" id="takePhoto" class="btn btn-success btn-lg">Tomar Foto</button>
-                <button type="submit" class="btn btn-primary btn-lg">Guardar Foto</button>
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" id="takePhoto" class="btn btn-success btn-lg">📸 Tomar Foto</button>
+                <button type="submit" class="btn btn-danger btn-lg">💾 Guardar Foto</button>
             </div>
         </form>
-        <div id="photoContainer" class="card p-4 mt-4 shadow-lg">
+        <div id="photoContainer" class="card p-4 mt-4 shadow-lg border-0">
+            <h3 class="text-center text-green font-weight-bold">Vista Previa 🎬</h3>
             <img id="capturedPhoto" src="" alt="Foto capturada" class="img-fluid" style="display: none;">
-            <img id="frame" src="MarcoaNavid.svg" alt="Marco Navideño" class="img-fluid" style="position: absolute; top: 0; left: 0; pointer-events: none; display: none;">
+            <img id="frame" src="marcoFinal.svg" alt="Marco Navideño" class="img-fluid" style="position: absolute; top: 0; left: 0; pointer-events: none; display: none;">
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
